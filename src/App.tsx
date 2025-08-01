@@ -8,9 +8,11 @@ import { IProduct } from './interfaces'
 import { productValidation } from './validation'
 import Error from './Components/UI/Error'
 import ColorCircle from './Components/ColorCircle'
+import { v4 as uuid } from "uuid";
 
 const App = () => {
   
+  // product object
   const productOBJ = {
     title: "",
     description: "",
@@ -25,10 +27,16 @@ const App = () => {
 
   /* ___ STATES ___ */
 
+// products state
+const [products, setProducts] = useState<IProduct[]>(productList)
+
+  // product state
 const [product, setProduct] = useState<IProduct>(productOBJ);
 
+  // modal state
   const [isOpen, setIsOpen] = useState(false);
 
+  // errors state
   const [errors , setErrors] = useState({title: "",description: "",imageURL: "",price: ""});
 
   //  temporary colors state to store colors before submitting
@@ -68,8 +76,11 @@ const [product, setProduct] = useState<IProduct>(productOBJ);
       setErrors(errors)
       return
     }
+
+    setProducts((prev)=>[{...product , id: uuid() , colors: tempColors },...prev])
     console.log('send product to api')
     setProduct(productOBJ)
+    setTempColor([])
     close()
     
     // ** if no errors, then send the data to the server
@@ -78,7 +89,7 @@ const [product, setProduct] = useState<IProduct>(productOBJ);
 
 
   /* ___ RENDER ___ */
-  const renderProductList = productList.map(product => < ProductCard key={product.id} product={product} />)
+  const renderProductList = products  .map(product => < ProductCard key={product.id} product={product} />)
 
 
   const renderFormInput = formInputsList.map(input => (

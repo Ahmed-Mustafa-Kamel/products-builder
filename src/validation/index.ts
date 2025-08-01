@@ -10,12 +10,12 @@ export const productValidation =(product : {title: string, description: string, 
 
         const validUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imageURL)
 
-        if(!product.title.trim() || product.title.length < 10 || product.title.length > 80){
-            errors.title = "Title must be between 10 and 80 characters"
+        if(!product.title.trim() || product.title.length < 8 || product.title.length > 80){
+            errors.title = "Title must be between 8 and 80 characters"
         }
 
-        if(!product.description.trim() || product.description.length < 20 || product.description.length > 200){
-            errors.description = "Description must be between 20 and 200 characters"
+        if(!product.description.trim() || product.description.length < 8 || product.description.length > 200){
+            errors.description = "Description must be between 8 and 200 characters"
         }
 
         if(!product.imageURL.trim() || !validUrl){
