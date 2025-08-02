@@ -4,14 +4,24 @@ import Image from "./Image"
 import Button from "./UI/Button"
 import ColorCircle from "./ColorCircle"
 interface IProps {
-  product: IProduct
+  product: IProduct,
+  setProductToEdit: (product: IProduct) => void,
+  openEditModal: () => void,
 }
 
-const ProductCard = ({ product: { title, imageURL, description, category , price ,colors } }: IProps) => {
+const ProductCard = ({ product , setProductToEdit , openEditModal }: IProps) => {
+  const { title, imageURL, description, category , price ,colors } = product
 
   /* ___ RENDER ___ */
 
   const renderProductColors = colors.map(color => <ColorCircle key={color} color={color}/>)
+
+  /*___ HANDLER ___*/
+  const onEdit = () => {
+    setProductToEdit(product)
+    openEditModal() 
+  }
+
 
 
   return (
@@ -31,7 +41,7 @@ const ProductCard = ({ product: { title, imageURL, description, category , price
       </div>
 
       <div className="flex gap-2 items-end">
-        <Button className="bg-blue-500 hover:bg-blue-700"  >Edit</Button>
+        <Button className="bg-blue-500 hover:bg-blue-700" onClick={onEdit} >Edit</Button>
         <Button className="bg-red-500 hover:bg-red-700 ">Delete</Button>
 
       </div>
