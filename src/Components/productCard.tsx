@@ -7,9 +7,11 @@ interface IProps {
   product: IProduct,
   setProductToEdit: (product: IProduct) => void,
   openEditModal: () => void,
+  idx: number,
+  setProductToEditIdx : (value: number) => void
 }
 
-const ProductCard = ({ product , setProductToEdit , openEditModal }: IProps) => {
+const ProductCard = ({ product , setProductToEdit , openEditModal , idx , setProductToEditIdx }: IProps) => {
   const { title, imageURL, description, category , price ,colors } = product
 
   /* ___ RENDER ___ */
@@ -20,6 +22,7 @@ const ProductCard = ({ product , setProductToEdit , openEditModal }: IProps) => 
   const onEdit = () => {
     setProductToEdit(product)
     openEditModal() 
+    setProductToEditIdx(idx)
   }
 
 
